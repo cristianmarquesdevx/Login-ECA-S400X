@@ -1,0 +1,1318 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - SIMULADO ECA 400 Questões</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      :root {
+        --primary: #1a237e;
+        --secondary: #283593;
+        --accent: #3949ab;
+        --light: #e8eaf6;
+        --dark: #0d1241;
+        --success: #2e7d32;
+        --warning: #f57c00;
+        --danger: #c62828;
+        --info: #0277bd;
+        --shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        --shadow-lg: 0 8px 24px rgba(0, 0, 0, 0.15);
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", "Roboto", sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #f5f7ff 0%, #e3e8ff 100%);
+        color: var(--dark);
+        min-height: 100vh;
+        padding: 20px;
+        font-size: 16px;
+        line-height: 1.6;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+      }
+
+      header {
+        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        color: white;
+        padding: 25px 30px;
+        border-radius: 12px;
+        box-shadow: var(--shadow);
+        margin-bottom: 25px;
+        position: relative;
+        overflow: hidden;
+        text-align: center;
+      }
+
+      header::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle,
+          rgba(255, 255, 255, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 30px 30px;
+        opacity: 0.2;
+        z-index: 0;
+      }
+
+      .header-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 2.3rem;
+        margin-bottom: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        margin-bottom: 5px;
+      }
+
+      .login-panel {
+        background: white;
+        border-radius: 12px;
+        box-shadow: var(--shadow-lg);
+        overflow: hidden;
+        margin-bottom: 25px;
+      }
+
+      .panel-header {
+        background: linear-gradient(135deg, var(--secondary), var(--accent));
+        color: white;
+        padding: 25px;
+        text-align: center;
+        border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .panel-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+      }
+
+      .login-body {
+        padding: 35px 40px;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--dark);
+        font-size: 1rem;
+      }
+
+      .input-with-icon {
+        position: relative;
+      }
+
+      .input-icon {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--accent);
+        font-size: 1.2rem;
+      }
+
+      input {
+        width: 100%;
+        padding: 15px 15px 15px 50px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        background: white;
+        transition: all 0.3s ease;
+        color: var(--dark);
+      }
+
+      input:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.15);
+      }
+
+      .btn {
+        padding: 15px 24px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 1.05rem;
+        transition: all 0.3s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        margin-top: 10px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--accent), var(--secondary));
+        color: white;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 16px rgba(57, 73, 171, 0.3);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .btn-secondary {
+        background: #f0f0f0;
+        color: var(--dark);
+        margin-top: 15px;
+      }
+
+      .btn-secondary:hover {
+        background: #e0e0e0;
+      }
+
+      .login-footer {
+        text-align: center;
+        padding: 20px;
+        color: #666;
+        font-size: 0.9rem;
+        border-top: 1px solid #e0e0e0;
+        background: #f8f9ff;
+      }
+
+      .login-footer a {
+        color: var(--accent);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .login-footer a:hover {
+        text-decoration: underline;
+      }
+
+      .message {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        display: none;
+        text-align: center;
+        font-weight: 500;
+        animation: fadeIn 0.3s ease;
+      }
+
+      .message.error {
+        background: #ffebee;
+        color: var(--danger);
+        border: 1px solid #ffcdd2;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .message.success {
+        background: #e8f5e9;
+        color: var(--success);
+        border: 1px solid #c8e6c9;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .message.info {
+        background: #e3f2fd;
+        color: var(--info);
+        border: 1px solid #bbdefb;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      .checkbox-group input {
+        width: auto;
+        margin-right: 10px;
+        transform: scale(1.2);
+      }
+
+      .checkbox-group label {
+        margin-bottom: 0;
+        font-weight: normal;
+      }
+
+      .version {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 0.85rem;
+        color: #777;
+      }
+
+      #btnSpinner {
+        display: none;
+        width: 20px;
+        height: 20px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+      }
+
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+      
+      @keyframes shake {
+        0%, 100% { transform: translateX(0); }
+        10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+        20%, 40%, 60%, 80% { transform: translateX(5px); }
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+
+      .demo-notice {
+        background: #e8f5e9;
+        border-left: 4px solid var(--success);
+        padding: 12px 15px;
+        margin-top: 20px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        color: var(--dark);
+        text-align: center;
+      }
+
+      .demo-notice strong {
+        color: var(--success);
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 15px;
+        }
+        
+        h1 {
+          font-size: 1.8rem;
+        }
+        
+        .login-body {
+          padding: 25px 30px;
+        }
+        
+        .panel-header {
+          padding: 20px;
+        }
+      }
+
+      @media (max-width: 480px) {
+        body {
+          padding: 10px;
+        }
+        
+        h1 {
+          font-size: 1.5rem;
+        }
+        
+        .login-body {
+          padding: 20px;
+        }
+        
+        input {
+          padding: 12px 12px 12px 45px;
+        }
+        
+        .btn {
+          padding: 14px 20px;
+        }
+      }
+
+      .login-panel {
+        animation: fadeIn 0.5s ease-out;
+      }
+
+      ::-webkit-scrollbar {
+        width: 10px;
+        height: 10px;
+      }
+
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb {
+        background: var(--accent);
+        border-radius: 5px;
+      }
+
+      ::-webkit-scrollbar-thumb:hover {
+        background: var(--secondary);
+      }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>
+                    <i class="fas fa-balance-scale"></i>
+                    SIMULADO ECA
+                </h1>
+                <div class="subtitle">
+                    Sistema profissional para estudo do Estatuto da Criança e do Adolescente
+                </div>
+                <div class="subtitle">
+                    <strong>400 Questões Completas</strong>
+                </div>
+            </div>
+        </header>
+
+        <div class="login-panel">
+            <div class="panel-header">
+                <div class="panel-title">
+                    <i class="fas fa-user-circle"></i>
+                    Acesse o Sistema
+                </div>
+            </div>
+
+            <div class="login-body">
+                <div id="loginErro" class="message error">
+                    <i class="fas fa-exclamation-circle"></i>
+                    <span id="errorText"></span>
+                </div>
+                
+                <form id="loginForm">
+                    <div class="form-group">
+                        <label for="loginUser">
+                            <i class="fas fa-envelope"></i> E-mail / Usuário
+                        </label>
+                        <div class="input-with-icon">
+                            <div class="input-icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <input 
+                                type="text" 
+                                id="loginUser" 
+                                name="loginUser" 
+                                placeholder="Digite seu usuário ou e-mail"
+                                autocomplete="username"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="loginPass">
+                            <i class="fas fa-lock"></i> Senha
+                        </label>
+                        <div class="input-with-icon">
+                            <div class="input-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <input 
+                                type="password" 
+                                id="loginPass" 
+                                name="loginPass" 
+                                placeholder="Digite sua senha"
+                                autocomplete="current-password"
+                                required
+                            >
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Manter-me conectado (8 horas)</label>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary" id="btnLogin">
+                        <span id="btnText">
+                            <i class="fas fa-sign-in-alt"></i> Entrar no Sistema
+                        </span>
+                        <div id="btnSpinner"></div>
+                    </button>
+                </form>
+            </div>
+
+            <div class="login-footer">
+                <p>
+                    <a href="#" id="forgotPassword">
+                        <i class="fas fa-question-circle"></i> Esqueci minha senha
+                    </a>
+                </p>
+                <p style="margin-top: 10px;">
+                    Não tem uma conta? 
+                    <a href="#" id="registerLink">Solicitar acesso</a>
+                </p>
+            </div>
+        </div>
+
+        <footer style="text-align: center; padding: 20px; color: #666; font-size: 0.9rem;">
+            <p>
+                <i class="fas fa-shield-alt"></i> Sistema seguro desenvolvido por:
+                <strong>Cristian Marques</strong>
+            </p>
+            <p class="version">Versão 2.1 • SIMULADO ECA 400 Questões • Sessão: 8h • Sistema Multi-Usuário</p>
+        </footer>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURAÇÕES DO SISTEMA DE LOGIN COM MÚLTIPLOS USUÁRIOS
+        // ============================================
+        const CONFIG = {
+            USUARIOS: [
+                {
+                    id: 1,
+                    nome: "Cristian Marques",
+                    usuario: "Test.System",
+                    senha: "a1b2c3d4#",
+                    perfil: "Administrador",
+                    email: "sonia@exemplo.com"
+                },
+                {
+                    id: 2,
+                    nome: "Maicon Rangel",
+                    usuario: "Maicon.Rangel",
+                    senha: "CE123456@",
+                    perfil: "Estudante",
+                    email: "rangel@exemplo.com"
+                },
+                {
+                    id: 3,
+                    nome: "Sonia Rodrigue",
+                    usuario: "sonia rodrigues",
+                    senha: "SO 024517@",
+                    perfil: "Estudante",
+                    email: "mariana@exemplo.com"
+                },
+                {
+                    id: 4,
+                    nome: "Roberto Fernandes Lima",
+                    usuario: "roberto.lima",
+                    senha: "RF345678@",
+                    perfil: "Estudante",
+                    email: "roberto@exemplo.com"
+                },
+                {
+                    id: 5,
+                    nome: "Ana Paula Costa",
+                    usuario: "ana.costa",
+                    senha: "AP901234@",
+                    perfil: "Professor",
+                    email: "ana@exemplo.com"
+                },
+                {
+                    id: 6,
+                    nome: "João Victor Almeida",
+                    usuario: "joao.almeida",
+                    senha: "JA567890@",
+                    perfil: "Estudante",
+                    email: "joao@exemplo.com"
+                },
+                {
+                    id: 7,
+                    nome: "Fernanda Souza Rocha",
+                    usuario: "fernanda.rocha",
+                    senha: "FS123789@",
+                    perfil: "Estudante",
+                    email: "fernanda@exemplo.com"
+                },
+                {
+                    id: 8,
+                    nome: "Lucas Mendes Pereira",
+                    usuario: "lucas.pereira",
+                    senha: "LM456123@",
+                    perfil: "Estudante",
+                    email: "lucas@exemplo.com"
+                },
+                {
+                    id: 9,
+                    nome: "Juliana Torres",
+                    usuario: "juliana.torres",
+                    senha: "JT789456@",
+                    perfil: "Professor",
+                    email: "juliana@exemplo.com"
+                },
+                {
+                    id: 10,
+                    nome: "Ricardo Nogueira",
+                    usuario: "ricardo.nogueira",
+                    senha: "RN012345@",
+                    perfil: "Estudante",
+                    email: "ricardo@exemplo.com"
+                }
+            ],
+            URL_SIMULADO: "https://cristianmarquesdevx.github.io/ECA-S400X/",
+            URL_LOGIN: window.location.href,
+            TEMPO_SESSAO: 8 * 60 * 60 * 1000, // 8 horas
+            TEMPO_REDIRECIONAMENTO: 1200,
+            MAX_TENTATIVAS: 5,
+            TEMPO_BLOQUEIO: 30000 // 30 segundos
+        };
+
+        // ============================================
+        // ESTADO DA APLICAÇÃO
+        // ============================================
+        const STATE = {
+            elementos: {},
+            carregando: false,
+            tentativas: 0,
+            sessaoAtiva: false,
+            usuarioAtual: null
+        };
+
+        // ============================================
+        // INICIALIZAÇÃO DO SISTEMA
+        // ============================================
+        function initLogin() {
+            console.log('🔐 Sistema de Login Multi-Usuário inicializando...');
+            
+            // Mapear elementos DOM
+            STATE.elementos = {
+                user: document.getElementById('loginUser'),
+                pass: document.getElementById('loginPass'),
+                erro: document.getElementById('loginErro'),
+                errorText: document.getElementById('errorText'),
+                btnLogin: document.getElementById('btnLogin'),
+                btnText: document.getElementById('btnText'),
+                btnSpinner: document.getElementById('btnSpinner'),
+                form: document.getElementById('loginForm'),
+                forgotPassword: document.getElementById('forgotPassword'),
+                registerLink: document.getElementById('registerLink')
+            };
+            
+            // Verificar sessão existente
+            checkExistingSession();
+            
+            // Configurar eventos
+            setupEvents();
+            
+            // Foco automático no campo de usuário
+            if (STATE.elementos.user) {
+                setTimeout(() => {
+                    STATE.elementos.user.focus();
+                    STATE.elementos.user.select();
+                }, 100);
+            }
+            
+            // Mostrar mensagem de boas-vindas
+            setTimeout(() => {
+                showMessage('Sistema de login seguro inicializado', 'info');
+            }, 500);
+            
+            console.log('✅ Sistema de Login Multi-Usuário inicializado');
+        }
+
+        // ============================================
+        // VERIFICAÇÃO DE SESSÃO EXISTENTE
+        // ============================================
+        function checkExistingSession() {
+            try {
+                const session = localStorage.getItem('eca_session');
+                if (!session) return;
+                
+                const sessionData = JSON.parse(session);
+                const agora = Date.now();
+                
+                if (sessionData.expira > agora) {
+                    STATE.sessaoAtiva = true;
+                    
+                    // Verificar se o usuário ainda existe na lista
+                    const usuarioValido = CONFIG.USUARIOS.find(u => 
+                        u.usuario === sessionData.usuario || u.nome === sessionData.usuario
+                    );
+                    
+                    if (!usuarioValido) {
+                        clearSessionData();
+                        showMessage('Usuário da sessão não encontrado. Faça login novamente.', 'warning');
+                        return;
+                    }
+                    
+                    STATE.usuarioAtual = usuarioValido;
+                    
+                    // Se a sessão for recente (< 1 minuto), redireciona direto
+                    if (agora - sessionData.timestamp < 60000) {
+                        console.log('🔄 Sessão ativa detectada, redirecionando...');
+                        showMessage(`Sessão ativa para ${usuarioValido.nome}, redirecionando...`, 'info');
+                        setTimeout(() => {
+                            redirectToSimulado(sessionData.token, usuarioValido);
+                        }, 1500);
+                    } else {
+                        // Mostrar opção para continuar sessão
+                        showMessage(`Sessão ativa de ${usuarioValido.nome} (${formatarData(sessionData.timestamp)}). Faça login para renovar.`, 'info');
+                        STATE.elementos.user.value = usuarioValido.usuario;
+                    }
+                } else {
+                    // Sessão expirada - limpar dados
+                    clearSessionData();
+                    showMessage('Sua sessão expirou. Faça login novamente.', 'warning');
+                }
+            } catch (e) {
+                console.error('❌ Erro ao verificar sessão:', e);
+                clearSessionData();
+            }
+        }
+
+        // ============================================
+        // CONFIGURAÇÃO DE EVENTOS
+        // ============================================
+        function setupEvents() {
+            const el = STATE.elementos;
+            
+            // Evento de submit do formulário
+            if (el.form) {
+                el.form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    handleLogin();
+                });
+            }
+            
+            // Eventos de foco nos campos (limpa erros)
+            if (el.user && el.pass) {
+                el.user.addEventListener('focus', clearError);
+                el.pass.addEventListener('focus', clearError);
+                
+                // Permitir login com Enter em qualquer campo
+                el.user.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !STATE.carregando) {
+                        handleLogin();
+                    }
+                });
+                el.pass.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter' && !STATE.carregando) {
+                        handleLogin();
+                    }
+                });
+            }
+            
+            // Link "Esqueci minha senha"
+            if (el.forgotPassword) {
+                el.forgotPassword.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const email = STATE.elementos.user.value.trim();
+                    
+                    if (!email) {
+                        showError('Por favor, informe seu e-mail para redefinir a senha.');
+                        STATE.elementos.user.focus();
+                        return;
+                    }
+                    
+                    // Encontrar usuário pelo e-mail ou nome de usuário
+                    const usuario = CONFIG.USUARIOS.find(u => 
+                        u.email === email || u.usuario === email || u.nome === email
+                    );
+                    
+                    if (usuario) {
+                        showMessage(`Instruções de recuperação enviadas para ${usuario.email}`, 'success');
+                    } else {
+                        showError('E-mail/nome de usuário não encontrado.');
+                    }
+                });
+            }
+            
+            // Link "Solicitar acesso"
+            if (el.registerLink) {
+                el.registerLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const email = STATE.elementos.user.value.trim();
+                    
+                    if (!email) {
+                        showError('Por favor, informe seu e-mail para solicitar acesso.');
+                        STATE.elementos.user.focus();
+                        return;
+                    }
+                    
+                    // Verificar se já existe
+                    const existe = CONFIG.USUARIOS.find(u => u.email === email);
+                    
+                    if (existe) {
+                        showError('Este e-mail já possui acesso ao sistema.');
+                    } else {
+                        showMessage(`Solicitação de acesso para ${email} registrada. Aguarde contato da administração.`, 'success');
+                    }
+                });
+            }
+            
+            // Evento de tecla Enter global
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' && !STATE.carregando) {
+                    handleLogin();
+                }
+            });
+            
+            // Permitir visualização de senha com Alt
+            if (el.pass) {
+                let showingPassword = false;
+                el.pass.addEventListener('keydown', function(e) {
+                    if (e.altKey && e.key === 'v') {
+                        e.preventDefault();
+                        showingPassword = !showingPassword;
+                        el.pass.type = showingPassword ? 'text' : 'password';
+                        
+                        const icon = el.pass.parentNode.querySelector('.input-icon i');
+                        if (icon) {
+                            icon.className = showingPassword ? 'fas fa-eye' : 'fas fa-key';
+                        }
+                        
+                        showMessage(`Senha ${showingPassword ? 'visível' : 'oculta'} (Alt+V)`, 'info', 1000);
+                    }
+                });
+            }
+        }
+
+        // ============================================
+        // MANIPULAÇÃO DO LOGIN
+        // ============================================
+        function handleLogin() {
+            if (STATE.carregando) return;
+            
+            const user = STATE.elementos.user.value.trim();
+            const pass = STATE.elementos.pass.value;
+            
+            // Validação de entrada
+            if (!validateInputs(user, pass)) return;
+            
+            // Iniciar processo de login
+            STATE.carregando = true;
+            STATE.tentativas++;
+            
+            showLoading(true);
+            
+            // Simular delay de rede
+            setTimeout(() => {
+                const usuarioAutenticado = authenticate(user, pass);
+                if (usuarioAutenticado) {
+                    loginSuccess(usuarioAutenticado);
+                } else {
+                    loginFailed();
+                }
+            }, 800);
+        }
+
+        // ============================================
+        // VALIDAÇÃO DE ENTRADA
+        // ============================================
+        function validateInputs(user, pass) {
+            // Limpar erros anteriores
+            clearError();
+            
+            // Validar usuário
+            if (!user) {
+                showError('Por favor, informe seu usuário ou e-mail');
+                highlightInvalidFields(true, false);
+                STATE.elementos.user.focus();
+                return false;
+            }
+            
+            if (user.length < 3) {
+                showError('Usuário deve ter pelo menos 3 caracteres');
+                highlightInvalidFields(true, false);
+                STATE.elementos.user.focus();
+                STATE.elementos.user.select();
+                return false;
+            }
+            
+            // Validar senha
+            if (!pass) {
+                showError('Por favor, informe sua senha');
+                highlightInvalidFields(false, true);
+                STATE.elementos.pass.focus();
+                return false;
+            }
+            
+            if (pass.length < 4) {
+                showError('Senha deve ter pelo menos 4 caracteres');
+                highlightInvalidFields(false, true);
+                STATE.elementos.pass.focus();
+                STATE.elementos.pass.select();
+                return false;
+            }
+            
+            return true;
+        }
+
+        // ============================================
+        // AUTENTICAÇÃO (MULTI-USUÁRIO)
+        // ============================================
+        function authenticate(user, pass) {
+            // Buscar usuário por nome de usuário, e-mail ou nome completo
+            const usuarioEncontrado = CONFIG.USUARIOS.find(u => 
+                (u.usuario === user || u.email === user || u.nome === user) && 
+                u.senha === pass
+            );
+            
+            return usuarioEncontrado || false;
+        }
+
+        // ============================================
+        // LOGIN BEM-SUCEDIDO
+        // ============================================
+        function loginSuccess(usuario) {
+            STATE.usuarioAtual = usuario;
+            
+            // Gerar token de sessão
+            const token = generateToken(usuario);
+            
+            // Criar dados da sessão
+            const sessionData = {
+                usuario: usuario.usuario,
+                nome: usuario.nome,
+                perfil: usuario.perfil,
+                email: usuario.email,
+                token: token,
+                timestamp: Date.now(),
+                expira: Date.now() + CONFIG.TEMPO_SESSAO,
+                ip: 'simulado',
+                userAgent: navigator.userAgent.substring(0, 100),
+                remember: document.getElementById('remember').checked
+            };
+            
+            // Salvar sessão
+            saveSession(sessionData);
+            
+            // Animação de sucesso
+            animateSuccess(usuario.nome);
+            
+            // Redirecionar para o simulado
+            setTimeout(() => {
+                redirectToSimulado(token, usuario);
+            }, CONFIG.TEMPO_REDIRECIONAMENTO);
+        }
+
+        // ============================================
+        // LOGIN FALHOU
+        // ============================================
+        function loginFailed() {
+            STATE.carregando = false;
+            showLoading(false);
+            
+            // Mensagem de erro
+            let errorMsg = 'Credenciais inválidas';
+            const usuariosRestantes = CONFIG.MAX_TENTATIVAS - STATE.tentativas;
+            
+            if (usuariosRestantes > 0) {
+                errorMsg += `. ${usuariosRestantes} tentativa(s) restante(s).`;
+            }
+            
+            showError(errorMsg);
+            
+            // Efeitos visuais
+            shakeForm();
+            highlightInvalidFields(true, true);
+            
+            // Focar no campo de usuário
+            STATE.elementos.user.focus();
+            STATE.elementos.user.select();
+            
+            // Limpar destaque após 3 segundos
+            setTimeout(() => {
+                clearError();
+            }, 3000);
+            
+            // Bloqueio após muitas tentativas
+            if (STATE.tentativas >= CONFIG.MAX_TENTATIVAS) {
+                showError(`Muitas tentativas falhas. Aguarde ${CONFIG.TEMPO_BLOQUEIO/1000} segundos.`);
+                disableLogin(CONFIG.TEMPO_BLOQUEIO);
+            }
+        }
+
+        // ============================================
+        // GERAR TOKEN DE SESSÃO
+        // ============================================
+        function generateToken(usuario) {
+            const timestamp = Date.now();
+            const random = Math.random().toString(36).substring(2, 15);
+            const data = `${usuario.id}:${usuario.usuario}:${timestamp}:${random}:${navigator.userAgent.substring(0, 30)}`;
+            return btoa(data).replace(/[^a-zA-Z0-9]/g, '').substring(0, 50);
+        }
+
+        // ============================================
+        // SALVAR SESSÃO
+        // ============================================
+        function saveSession(sessionData) {
+            try {
+                // LocalStorage
+                localStorage.setItem('eca_session', JSON.stringify(sessionData));
+                localStorage.setItem('eca_token', sessionData.token);
+                localStorage.setItem('eca_usuario', sessionData.usuario);
+                localStorage.setItem('eca_nome', sessionData.nome);
+                localStorage.setItem('eca_perfil', sessionData.perfil);
+                localStorage.setItem('eca_login_time', sessionData.timestamp.toString());
+                
+                // Cookie de backup
+                const cookieExpiry = sessionData.remember ? 7*24*60*60 : CONFIG.TEMPO_SESSAO/1000;
+                document.cookie = `eca_token=${sessionData.token}; path=/; max-age=${cookieExpiry}; SameSite=Strict`;
+                document.cookie = `eca_user=${sessionData.usuario}; path=/; max-age=${cookieExpiry}; SameSite=Strict`;
+                
+                console.log(`💾 Sessão salva para ${sessionData.nome}`);
+            } catch (e) {
+                console.error('❌ Erro ao salvar sessão:', e);
+                showError('Erro ao salvar sessão. Tente novamente.');
+            }
+        }
+
+        // ============================================
+        // LIMPAR DADOS DA SESSÃO
+        // ============================================
+        function clearSessionData() {
+            try {
+                localStorage.removeItem('eca_session');
+                localStorage.removeItem('eca_token');
+                localStorage.removeItem('eca_usuario');
+                localStorage.removeItem('eca_nome');
+                localStorage.removeItem('eca_perfil');
+                localStorage.removeItem('eca_login_time');
+                
+                // Cookies
+                document.cookie = 'eca_token=; path=/; max-age=0; SameSite=Strict';
+                document.cookie = 'eca_user=; path=/; max-age=0; SameSite=Strict';
+                
+                STATE.usuarioAtual = null;
+            } catch (e) {
+                console.error('Erro ao limpar sessão:', e);
+            }
+        }
+
+        // ============================================
+        // CONTROLE DE LOADING
+        // ============================================
+        function showLoading(show) {
+            const el = STATE.elementos;
+            
+            if (show) {
+                el.btnText.style.display = 'none';
+                el.btnSpinner.style.display = 'block';
+                el.btnLogin.disabled = true;
+                el.btnLogin.style.cursor = 'not-allowed';
+                el.btnLogin.style.opacity = '0.7';
+            } else {
+                el.btnText.style.display = 'inline';
+                el.btnSpinner.style.display = 'none';
+                el.btnLogin.disabled = false;
+                el.btnLogin.style.cursor = 'pointer';
+                el.btnLogin.style.opacity = '1';
+            }
+            
+            STATE.carregando = show;
+        }
+
+        // ============================================
+        // MANIPULAÇÃO DE MENSAGENS
+        // ============================================
+        function showError(message) {
+            const el = STATE.elementos;
+            if (!el.erro || !el.errorText) return;
+            
+            el.errorText.textContent = message;
+            el.erro.style.display = 'flex';
+            el.erro.style.animation = 'fadeIn 0.3s ease';
+        }
+
+        function showMessage(message, type = 'info', duration = 3000) {
+            // Criar elemento de mensagem flutuante
+            const msgEl = document.createElement('div');
+            msgEl.className = `message ${type}`;
+            msgEl.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 15px 20px;
+                background: ${type === 'info' ? 'var(--info)' : 
+                           type === 'warning' ? 'var(--warning)' : 
+                           type === 'success' ? 'var(--success)' : 'var(--danger)'};
+                color: white;
+                border-radius: 8px;
+                box-shadow: var(--shadow-lg);
+                z-index: 10000;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                animation: slideIn 0.3s ease;
+                max-width: 400px;
+            `;
+            
+            const icon = type === 'info' ? 'info-circle' : 
+                        type === 'warning' ? 'exclamation-triangle' : 
+                        type === 'success' ? 'check-circle' : 'exclamation-circle';
+            msgEl.innerHTML = `<i class="fas fa-${icon}"></i><span>${message}</span>`;
+            
+            document.body.appendChild(msgEl);
+            
+            // Remover após duração especificada
+            setTimeout(() => {
+                msgEl.style.animation = 'slideOut 0.3s ease';
+                setTimeout(() => msgEl.remove(), 300);
+            }, duration);
+        }
+
+        function clearError() {
+            const el = STATE.elementos;
+            if (el.erro) el.erro.style.display = 'none';
+            if (el.user) {
+                el.user.style.borderColor = '';
+                el.user.style.boxShadow = '';
+            }
+            if (el.pass) {
+                el.pass.style.borderColor = '';
+                el.pass.style.boxShadow = '';
+            }
+        }
+
+        // ============================================
+        // EFEITOS VISUAIS
+        // ============================================
+        function highlightInvalidFields(userInvalid, passInvalid) {
+            const el = STATE.elementos;
+            
+            if (userInvalid && el.user) {
+                el.user.style.borderColor = 'var(--danger)';
+                el.user.style.boxShadow = '0 0 0 3px rgba(198, 40, 40, 0.1)';
+            }
+            
+            if (passInvalid && el.pass) {
+                el.pass.style.borderColor = 'var(--danger)';
+                el.pass.style.boxShadow = '0 0 0 3px rgba(198, 40, 40, 0.1)';
+            }
+        }
+
+        function animateSuccess(nomeUsuario) {
+            const el = STATE.elementos;
+            
+            // Mudar aparência do botão
+            el.btnLogin.style.background = 'linear-gradient(135deg, var(--success), #2ca42c)';
+            el.btnLogin.style.transform = 'scale(0.98)';
+            
+            // Mudar texto
+            el.btnText.innerHTML = `<i class="fas fa-check"></i> Bem-vindo(a), ${nomeUsuario.split(' ')[0]}!`;
+            el.btnText.style.display = 'inline';
+            el.btnSpinner.style.display = 'none';
+            
+            // Efeito de confete
+            createConfetti();
+        }
+
+        function createConfetti() {
+            const colors = ['#4361ee', '#7209b7', '#4cc9f0', '#38b000', '#f8961e'];
+            
+            for (let i = 0; i < 15; i++) {
+                const confetti = document.createElement('div');
+                confetti.style.cssText = `
+                    position: fixed;
+                    width: 10px;
+                    height: 10px;
+                    background: ${colors[Math.floor(Math.random() * colors.length)]};
+                    border-radius: 50%;
+                    top: 50%;
+                    left: 50%;
+                    z-index: 9999;
+                    pointer-events: none;
+                    opacity: 0.8;
+                `;
+                
+                document.body.appendChild(confetti);
+                
+                // Animação
+                const angle = Math.random() * Math.PI * 2;
+                const velocity = 1 + Math.random() * 2;
+                let vx = Math.cos(angle) * velocity;
+                let vy = Math.sin(angle) * velocity;
+                
+                let x = 50, y = 50;
+                const animate = () => {
+                    x += vx;
+                    y += vy;
+                    vy += 0.05; // gravidade suave
+                    
+                    confetti.style.left = x + '%';
+                    confetti.style.top = y + '%';
+                    confetti.style.opacity = parseFloat(confetti.style.opacity) - 0.01;
+                    
+                    if (parseFloat(confetti.style.opacity) > 0) {
+                        requestAnimationFrame(animate);
+                    } else {
+                        confetti.remove();
+                    }
+                };
+                
+                animate();
+            }
+        }
+
+        function shakeForm() {
+            const form = STATE.elementos.form;
+            if (!form) return;
+            
+            form.style.animation = 'shake 0.5s ease';
+            setTimeout(() => {
+                form.style.animation = '';
+            }, 500);
+        }
+
+        // ============================================
+        // CONTROLE DE BLOQUEIO
+        // ============================================
+        function disableLogin(time) {
+            const el = STATE.elementos;
+            
+            el.btnLogin.disabled = true;
+            el.btnLogin.style.cursor = 'not-allowed';
+            el.btnLogin.style.opacity = '0.5';
+            el.btnText.innerHTML = `<i class="fas fa-clock"></i> Aguarde ${time/1000}s...`;
+            
+            // Contador regressivo
+            const originalTime = time;
+            const interval = setInterval(() => {
+                time -= 1000;
+                if (time <= 0) {
+                    clearInterval(interval);
+                    el.btnLogin.disabled = false;
+                    el.btnLogin.style.cursor = 'pointer';
+                    el.btnLogin.style.opacity = '1';
+                    el.btnText.innerHTML = '<i class="fas fa-sign-in-alt"></i> Entrar no Sistema';
+                    STATE.tentativas = 0;
+                    showMessage('Bloqueio removido. Tente fazer login novamente.', 'info');
+                } else {
+                    el.btnText.innerHTML = `<i class="fas fa-clock"></i> Aguarde ${time/1000}s...`;
+                }
+            }, 1000);
+            
+            console.log(`🔒 Login bloqueado por ${originalTime/1000} segundos`);
+        }
+
+        // ============================================
+        // REDIRECIONAMENTO
+        // ============================================
+        function redirectToSimulado(token, usuario) {
+            const url = new URL(CONFIG.URL_SIMULADO);
+            url.searchParams.set('token', token);
+            url.searchParams.set('usuario', usuario.usuario);
+            url.searchParams.set('nome', usuario.nome);
+            url.searchParams.set('perfil', usuario.perfil);
+            url.searchParams.set('email', usuario.email);
+            url.searchParams.set('src', 'login_multi_user_v2.1');
+            url.searchParams.set('ts', Date.now());
+            url.searchParams.set('session_id', 'eca_' + usuario.id + '_' + Date.now());
+            
+            console.log(`🌐 Redirecionando ${usuario.nome} para: ${url.toString()}`);
+            window.location.href = url.toString();
+        }
+
+        // ============================================
+        // UTILITÁRIOS
+        // ============================================
+        function formatarData(timestamp) {
+            const data = new Date(timestamp);
+            return data.toLocaleTimeString('pt-BR', { 
+                hour: '2-digit', 
+                minute: '2-digit',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric'
+            });
+        }
+
+        // ============================================
+        // INICIALIZAÇÃO
+        // ============================================
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLogin);
+        } else {
+            initLogin();
+        }
+
+        // ============================================
+        // EXPORTAÇÃO PARA DEBUG
+        // ============================================
+        window.loginSystem = {
+            init: initLogin,
+            login: handleLogin,
+            logout: function() {
+                clearSessionData();
+                window.location.reload();
+            },
+            getState: () => STATE,
+            getConfig: () => CONFIG,
+            getUsuarios: () => CONFIG.USUARIOS,
+            getUsuarioAtual: () => STATE.usuarioAtual,
+            clearSession: clearSessionData,
+            // Função para adicionar usuário dinamicamente (para testes)
+            adicionarUsuario: function(nome, usuario, senha, perfil = 'Estudante', email = '') {
+                const novoId = Math.max(...CONFIG.USUARIOS.map(u => u.id)) + 1;
+                const novoUsuario = {
+                    id: novoId,
+                    nome: nome,
+                    usuario: usuario,
+                    senha: senha,
+                    perfil: perfil,
+                    email: email || `${usuario}@exemplo.com`
+                };
+                
+                CONFIG.USUARIOS.push(novoUsuario);
+                showMessage(`Usuário ${nome} adicionado com sucesso!`, 'success');
+                return novoUsuario;
+            }
+        };
+    </script>
+</body>
+</html>
